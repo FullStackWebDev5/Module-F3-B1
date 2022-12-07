@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Promise Chaining</title>
+	<script>
+			/*
+				Promise Chaining: Syntax that allows you to chain together multiple asynchronous tasks in a specific order. 
+
+				Promise chaining is required if:
+				- Another promise is returned from .then handler
+				- Any data is returned from .then handler
+
+				promise1.then(() => {
+					return promise2
+				}).then(() => {
+					return promise3
+				}).then(() => {
+
+				}).catch(() => {
+
+				})
+			*/
+
+			// const promise1 = () => new Promise((resolve, reject) => {
+			// 	setTimeout(() => {
+			// 		resolve()
+			// 	}, 5000)
+			// })
+
+			// const promise2 = () => new Promise((resolve, reject) => {
+			// 	setTimeout(() => {
+			// 		resolve()
+			// 	}, 2000)
+			// })
+
+			// const promise3 = () => new Promise((resolve, reject) => {
+			// 	setTimeout(() => {
+			// 		resolve()
+			// 	}, 8000)
+			// })
+
+			// promise1().then(() => {
+			// 	console.log('Promise 1 Resolved')
+			// 	return promise2()
+			// }).then(() => {
+			// 	console.log('Promise 2 Resolved')
+			// 	return promise3()
+			// }).then(() => {
+			// 	console.log('Promise 3 Resolved')
+			// }).catch(() => {
+			// 	console.log('Promise 1 Rejected')
+			// })
+
+			/* ---------------------------------------------------------------- */
+
+			/*
+				1. Fetch data from server - 5s
+				2. Process data - 8s
+				3. Mail processed data to the users - 6s
+			*/
+			const fetchDataFromServer = () => new Promise((resolve, reject) => {
+				console.log('Fetching data from server now ...')
+				setTimeout(() => {
+					resolve()
+					console.log('Fetched data from server successfully!')
+				}, 5000)
+			})
+
+			const processData = () => new Promise((resolve, reject) => {
+				console.log('Processing data now ...')
+				setTimeout(() => {
+					resolve()
+					console.log('Processed data successfully!')
+				}, 8000)
+			})
+
+			const mailDataToUsers = () => new Promise((resolve, reject) => {
+				console.log('Mailing data to users now ...')
+				setTimeout(() => {
+					resolve()
+					console.log('Mailed data to users successfully!')
+				}, 6000)
+			})
+
+			fetchDataFromServer().then(() => {
+				return processData()
+			}).then(() => {
+				return mailDataToUsers()
+			}).then(() => {
+				console.log('All tasks completed!')
+			}).catch(() => {
+				console.log('Something went wrong!')
+			})
+	</script>
+</head>
+<body>
+	
+</body>
+</html>
